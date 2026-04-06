@@ -1,5 +1,6 @@
 package fr.mqrtin.utility.enums;
 
+import fr.mqrtin.utility.module.modules.hidden.CPSCounter;
 import net.minecraft.client.Minecraft;
 
 import java.util.function.Supplier;
@@ -14,7 +15,8 @@ public enum LabelValue {
     PLAYER_Y("player_y", () -> Minecraft.getMinecraft().thePlayer.getPosition().getY() + ""),
     PLAYER_Z("player_z", () -> Minecraft.getMinecraft().thePlayer.getPosition().getZ() + ""),
     PLAYER_FACING("player_facing", () -> Minecraft.getMinecraft().thePlayer.getHorizontalFacing().getName()),
-    CPS_LEFT("cps_left", () -> String.valueOf(Minecraft.getMinecraft().gameSettings.keyBindAttack.getKeyCode() == 0 ? 0 : Minecraft.getMinecraft().gameSettings.keyBindAttack.getKeyCode()))
+    CPS_LEFT("cps_left", () -> CPSCounter.getLeftCPS() + ""),
+    CPS_RIGHT("cps_right", () -> CPSCounter.getRightCPS() + ""),
 
     ;
     private final String name;
@@ -25,12 +27,15 @@ public enum LabelValue {
         this.getValue = value;
     }
 
-    public static String reformat(String s){
-        for (LabelValue value : values()) {
-            s = s.replaceAll("\\{" + value.name + "\\}", value.getValue.get());
-        }
-
-        return s;
+    public String getName() {
+        return name;
     }
 
+    public Supplier<String> getGetValue() {
+        return getValue;
+    }
+
+    public String getValue(){
+        return getValue.get();
+    }
 }

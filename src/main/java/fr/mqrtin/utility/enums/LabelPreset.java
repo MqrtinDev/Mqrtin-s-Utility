@@ -6,7 +6,8 @@ public enum LabelPreset {
     CLOCK("Clock","{clock_hour}:{clock_minute}:{clock_second}"),
     CPS("CPS","{cps_left} | {cps_right}"),
     COORDINATES("Coordinates","{player_x} {player_y} {player_z}"),
-    DIRECTION("Direction","{player_facing}")
+    DIRECTION("Direction","{player_facing}"),
+    FPS("FPS", "{fps}")
     ;
     private final String labelName;
     private final String labelValue;

@@ -6,6 +6,7 @@ import fr.mqrtin.utility.enums.LabelValue;
 import fr.mqrtin.utility.event.EventTarget;
 import fr.mqrtin.utility.event.events.Render2DEvent;
 import fr.mqrtin.utility.module.impl.Module;
+import fr.mqrtin.utility.utils.TextUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
@@ -18,16 +19,17 @@ public class LabelModule extends Module {
 
     public LabelModule() {
         super("Label");
-        labels.add(LabelPreset.getFormat(LabelPreset.CLOCK, LabelType.COLON));
-        //labels.add(LabelPreset.getFormat(LabelPreset.CPS, LabelType.COLON));
-        labels.add(LabelPreset.getFormat(LabelPreset.COORDINATES, LabelType.COLON));
+        labels.add(LabelPreset.getFormat(LabelPreset.CLOCK, LabelType.SEMI_ARROW));
+        labels.add(LabelPreset.getFormat(LabelPreset.FPS, LabelType.SEMI_ARROW));
+        labels.add(LabelPreset.getFormat(LabelPreset.CPS, LabelType.SEMI_ARROW));
+        labels.add(LabelPreset.getFormat(LabelPreset.COORDINATES, LabelType.SEMI_ARROW));
     }
 
     @EventTarget
     public void onRender2D(Render2DEvent event) {
         FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRendererObj;
         for (int i = 0; i < labels.size(); i++) {
-            fontRendererObj.drawStringWithShadow(LabelValue.reformat(labels.get(i)), 5,5 + fontRendererObj.FONT_HEIGHT * i, 0xFFFFFF);
+            fontRendererObj.drawStringWithShadow(TextUtils.format(labels.get(i)), 5,5 + fontRendererObj.FONT_HEIGHT * i, 0xFFFFFF);
         }
 
     }

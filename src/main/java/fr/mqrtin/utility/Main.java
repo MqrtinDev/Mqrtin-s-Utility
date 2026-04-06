@@ -1,6 +1,7 @@
 package fr.mqrtin.utility;
 
 import fr.mqrtin.utility.module.ModuleManager;
+import fr.mqrtin.utility.module.modules.hidden.CPSCounter;
 import fr.mqrtin.utility.module.modules.misc.LabelModule;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -20,7 +21,7 @@ public class Main {
     public void init(FMLInitializationEvent event) {
         System.out.println("Mqrtin's Utility init");
         moduleManager = new ModuleManager();
-        moduleManager.register(new LabelModule());
+        moduleManager.register(new LabelModule(), new CPSCounter());
         instance = this;
         ClientRegistry.registerKeyBinding(openGuiKeybind);
     }

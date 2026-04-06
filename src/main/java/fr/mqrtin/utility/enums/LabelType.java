@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 public enum LabelType {
 
     ARROW("{0} -> {1}"),
+    SEMI_ARROW("{0} > {1}"),
     EQUALS("{0} = {1}"),
     COLON("{0}: {1}"),
     DASH("{0} - {1}"),
