@@ -45,6 +45,12 @@ public class ConfigManager {
         try (FileReader reader = new FileReader(configFile)) {
             JsonObject configJson = GSON.fromJson(reader, JsonObject.class);
 
+            // Vérifier si le JSON est valide
+            if (configJson == null) {
+                System.out.println("[ConfigManager] Le fichier config.json est vide ou invalide");
+                return;
+            }
+
             // Parcourir chaque module
             for (Map.Entry<Class<?>, ArrayList<Property<?>>> entry : propertyManager.properties.entrySet()) {
                 String moduleName = entry.getKey().getSimpleName();
@@ -56,16 +62,27 @@ public class ConfigManager {
 
                     // Charger chaque propriété
                     for (Property<?> property : properties) {
-                        property.read(moduleJson);
+                        try {
+                            if (property != null) {
+                                property.read(moduleJson);
+                            }
+                        } catch (Exception e) {
+                            System.err.println("[ConfigManager] Erreur lors de la lecture de la propriété " + property.getName() + ": " + e.getMessage());
+                        }
                     }
 
                     System.out.println("[ConfigManager] Module chargé: " + moduleName);
+                } else {
+                    System.out.println("[ConfigManager] Module non trouvé dans la config: " + moduleName);
                 }
             }
 
             System.out.println("[ConfigManager] Configuration chargée avec succès");
         } catch (IOException e) {
             System.err.println("[ConfigManager] Erreur lors de la lecture de la config: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("[ConfigManager] Erreur inattendue lors du chargement: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -75,6 +92,12 @@ public class ConfigManager {
      */
     public void saveConfig() {
         try {
+            // Vérifier que propertyManager est valide
+            if (propertyManager == null || propertyManager.properties == null || propertyManager.properties.isEmpty()) {
+                System.err.println("[ConfigManager] PropertyManager invalide ou vide");
+                return;
+            }
+
             JsonObject configJson = new JsonObject();
 
             // Parcourir chaque module
@@ -86,7 +109,9 @@ public class ConfigManager {
 
                 // Sauvegarder chaque propriété
                 for (Property<?> property : properties) {
-                    property.write(moduleJson);
+                    if (property != null) {
+                        property.write(moduleJson);
+                    }
                 }
 
                 configJson.add(moduleName, moduleJson);
@@ -100,11 +125,15 @@ public class ConfigManager {
             // Écrire le JSON
             try (FileWriter writer = new FileWriter(configFile)) {
                 GSON.toJson(configJson, writer);
+                writer.flush();
             }
 
             System.out.println("[ConfigManager] Configuration sauvegardée: " + configFile.getAbsolutePath());
         } catch (IOException e) {
             System.err.println("[ConfigManager] Erreur lors de la sauvegarde de la config: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("[ConfigManager] Erreur inattendue lors de la sauvegarde: " + e.getMessage());
             e.printStackTrace();
         }
     }

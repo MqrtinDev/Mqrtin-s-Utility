@@ -28,6 +28,11 @@ public class PropertyManager {
         ArrayList<Property<?>> moduleProperties = new ArrayList<>();
         Class<?> moduleClass = module.getClass();
 
+        // Ajouter la enabledProperty en premier
+        if (module.enabledProperty != null) {
+            moduleProperties.add(module.enabledProperty);
+        }
+
         // Parcourir tous les champs du module
         for (Field field : moduleClass.getDeclaredFields()) {
             // Vérifier si le champ est une Property
@@ -42,6 +47,11 @@ public class PropertyManager {
                     e.printStackTrace();
                 }
             }
+        }
+
+        // Ajouter la keybindProperty
+        if (module.keybindProperty != null) {
+            moduleProperties.add(module.keybindProperty);
         }
 
         // Enregistrer les propriétés du module

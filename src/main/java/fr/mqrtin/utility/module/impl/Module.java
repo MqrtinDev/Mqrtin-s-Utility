@@ -2,16 +2,19 @@ package fr.mqrtin.utility.module.impl;
 
 import fr.mqrtin.utility.Main;
 import fr.mqrtin.utility.module.ModuleCategory;
-import fr.mqrtin.utility.module.ModuleManager;
 import fr.mqrtin.utility.module.property.Property;
+import fr.mqrtin.utility.module.property.properties.BooleanProperty;
+import fr.mqrtin.utility.module.property.properties.KeyBindProperty;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public abstract class Module {
 
     private boolean enabled;
+    public BooleanProperty enabledProperty;
 
     private KeyBinding keybind;
+    public KeyBindProperty keybindProperty;
 
     private final String moduleName;
     private final ModuleCategory category;
@@ -25,6 +28,11 @@ public abstract class Module {
             return;
         }
         this.enabled = enabled;
+
+        // Mettre à jour la propriété aussi
+        if (this.enabledProperty != null) {
+            this.enabledProperty.setValue(enabled);
+        }
 
         if (enabled) {
             onEnable();
@@ -55,6 +63,8 @@ public abstract class Module {
         if (hasKeybind) {
             this.keybind = new KeyBinding("Module : " + getModuleName(), 0, "Mqrtin's Utility");
             ClientRegistry.registerKeyBinding(getKeybind());
+            // Créer et associer la propriété de keybind
+            this.keybindProperty = new KeyBindProperty("Keybind", this.keybind);
         }
     }
 

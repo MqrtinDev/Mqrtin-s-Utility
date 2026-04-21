@@ -14,8 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityRenderer.class)
 public abstract class MixinEntityRenderer {
 
-    @Inject(method = "renderWorld", at = @At("RETURN"))
-    private void onRenderWorld(float partialTicks, long finishTimeNano, CallbackInfo callbackInfo) {
-        EventManager.call(new Render3DEvent(partialTicks));
+    @Inject(
+            method = {"renderWorldPass"},
+            at = {@At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/client/renderer/EntityRenderer;renderHand:Z",
+                    shift = At.Shift.BEFORE
+            )}
+    )
+    private void renderWorldPass(int integer, float float2, long long3, CallbackInfo callbackInfo) {
+        EventManager.call(new Render3DEvent(float2));
     }
 }
