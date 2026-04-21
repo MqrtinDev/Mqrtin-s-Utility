@@ -1,12 +1,8 @@
 package fr.mqrtin.utility.mixin;
 
-import fr.mqrtin.utility.Main;
-import fr.mqrtin.utility.module.modules.misc.HeadObfuscationOverlay;
 import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 
 @SideOnly(Side.CLIENT)

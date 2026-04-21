@@ -1,6 +1,5 @@
 package fr.mqrtin.utility.mixin;
 
-import fr.mqrtin.utility.module.modules.misc.HeadObfuscationOverlay;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

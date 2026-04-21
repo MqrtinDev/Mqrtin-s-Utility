@@ -1,6 +1,7 @@
 package fr.mqrtin.utility.event.events;
 
 import fr.mqrtin.utility.event.Event;
+import fr.mqrtin.utility.event.EventType;
 
 public class TickEvent extends Event {
 

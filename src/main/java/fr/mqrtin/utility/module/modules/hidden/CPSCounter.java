@@ -4,6 +4,7 @@ import fr.mqrtin.utility.Main;
 import fr.mqrtin.utility.event.EventTarget;
 import fr.mqrtin.utility.event.events.LeftClickMouseEvent;
 import fr.mqrtin.utility.event.events.RightClickMouseEvent;
+import fr.mqrtin.utility.module.ModuleCategory;
 import fr.mqrtin.utility.module.impl.Module;
 
 import java.util.ArrayList;
@@ -11,11 +12,11 @@ import java.util.HashMap;
 
 public class CPSCounter extends Module{
 
-    private ArrayList<Long> leftClicks = new ArrayList<>();
-    private ArrayList<Long> rightClicks = new ArrayList<>();
+    private final ArrayList<Long> leftClicks = new ArrayList<>();
+    private final ArrayList<Long> rightClicks = new ArrayList<>();
 
     public CPSCounter() {
-        super("CPSCounter");
+        super("CPSCounter", ModuleCategory.HIDDEN, false);
     }
 
     @Override

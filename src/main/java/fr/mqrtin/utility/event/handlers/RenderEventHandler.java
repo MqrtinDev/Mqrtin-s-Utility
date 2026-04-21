@@ -1,7 +1,6 @@
 package fr.mqrtin.utility.event.handlers;
 
 import fr.mqrtin.utility.Main;
-import fr.mqrtin.utility.module.modules.misc.HeadObfuscationOverlay;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,7 +18,7 @@ public class RenderEventHandler {
             return;
         }
 
-        HeadObfuscationOverlay module = (HeadObfuscationOverlay) Main.moduleManager.modules.get(HeadObfuscationOverlay.class);
+        /*HeadObfuscationOverlay module = (HeadObfuscationOverlay) Main.moduleManager.modules.get(HeadObfuscationOverlay.class);
         if (event.overlayType != RenderBlockOverlayEvent.OverlayType.BLOCK) {
             return;
         }
@@ -27,7 +26,7 @@ public class RenderEventHandler {
         if (module != null && module.isEnabled() && HeadObfuscationOverlay.HideOverlay.isOverlayTransparent()) {
             // Annuler le rendu du bloc
             event.setCanceled(true);
-        }
+        }*/
     }
 }
 

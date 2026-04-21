@@ -61,6 +61,7 @@ repositories {
     maven("https://repo.spongepowered.org/maven/")
     // If you don't want to log in with your real minecraft account, remove this line
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
+    maven("https://repo.lunarclient.com")
 }
 val shadowImpl: Configuration by configurations.creating {
     configurations.implementation.get().extendsFrom(this)
@@ -77,6 +78,11 @@ dependencies {
     // If you don't want to log in with your real minecraft account, remove this line
     runtimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.2.1")
     implementation(kotlin("stdlib-jdk8"))
+    // Apollo dependencies
+    shadowImpl("com.google.protobuf:protobuf-java:3.24.0")
+    shadowImpl("com.lunarclient:apollo-protos:0.0.6")
+    implementation("com.google.protobuf:protobuf-java:3.24.0")
+    implementation("com.lunarclient:apollo-protos:0.0.6")
 }
 // Tasks:
 tasks.withType(JavaCompile::class) {
@@ -124,5 +130,7 @@ tasks.shadowJar {
     }
     // If you want to include other dependencies and shadow them, you can relocate them in here
     fun relocate(name: String) = relocate(name, "$baseGroup.deps.$name")
+    relocate("com.google.protobuf")
+    relocate("com.lunarclient")
 }
 tasks.assemble.get().dependsOn(tasks.remapJar)

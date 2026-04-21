@@ -1,6 +1,10 @@
 package fr.mqrtin.utility.utils;
 
+import fr.mqrtin.utility.Main;
 import fr.mqrtin.utility.enums.LabelValue;
+import fr.mqrtin.utility.module.modules.other.DebugModule;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
 
 public class TextUtils {
 
@@ -24,5 +28,13 @@ public class TextUtils {
         }
 
         return text;
+    }
+
+    public static void log(String message){
+        System.out.println(message);
+        DebugModule instance = DebugModule.getInstance(DebugModule.class);
+        if(instance.isEnabled()){
+            Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(message));
+        }
     }
 }
