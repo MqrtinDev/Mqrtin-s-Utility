@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public class RenderUtil {
+public class    RenderUtil {
 
     private static final ResourceLocation TEAM_ARROW_TEXTURE =
             new ResourceLocation("mqrtins", "icons/team-arrow.png");
